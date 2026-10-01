@@ -1,0 +1,4 @@
+scan.cpp: In function ‘void scan(const float*, float*, std::size_t)’:
+scan.cpp:9:21: warning: comparison of integer expressions of different signedness: ‘int’ and ‘std::size_t’ {aka ‘long unsigned int’} [-Wsign-compare]
+    9 |   for (int i = 1; i < n; i ++) {
+      |                   ~~^~~
