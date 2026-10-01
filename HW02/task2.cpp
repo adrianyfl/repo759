@@ -3,7 +3,7 @@
 #include <iostream>
 #include <random>
 #include <cstdlib>
-#include "scan.h"
+#include "convolution.h"
 
 // namespace shortcut
 using std::cout;
@@ -17,29 +17,36 @@ int main(int argc, char**argv) {
   duration<double, std::milli> duration_ms;
 
   // rng
-  std::uniform_real_distribution<float> distrib(-1.0, 1.0);
+  std::uniform_real_distribution<float> distrib10(-10.0, 10.0);
+  std::uniform_real_distribution<float> distrib1(-1.0, 1.0);
   std::default_random_engine engine;
 
   // io & arr construction
   std::size_t n = std::atoi(argv[1]);
-  float *arr = (float *)malloc(sizeof(float) * n);
-  for (std::size_t i = 0; i < n; i ++) {
-    arr[i] = distrib(engine);
+  std::size_t m = std::atoi(argv[2]);
+  float *img = new float[n * n];
+  float *mask = new float[m * m];
+  for (std::size_t i = 0; i < n * n; i ++) {
+    img[i] = distrib10(engine);
   }
-  float *arr_out = (float *)malloc(sizeof(float) * n);
+  for (std::size_t i = 0; i < m * m; i ++) {
+    mask[i] = distrib1(engine);
+  }
+  float *img_out = new float[n * n];
 
-  // time scan
+  // time convolution
   start = high_resolution_clock::now();
-  scan(arr, arr_out, n);
+  convolve(img, img_out, n, mask, m);
   end = high_resolution_clock::now();
 
   // calculate difference
   duration_ms = std::chrono::duration_cast<duration<double, std::milli>> (end - start);
   
   // output result
-  cout << duration_ms.count() << "\n" << arr_out[0] << "\n" << arr_out[n-1] << "\n";
+  cout << duration_ms.count() << "\n" << img_out[0] << "\n" << img_out[n * n - 1] << "\n";
 
   // free memory
-  free(arr);
-  free(arr_out);
+  delete[] img;
+  delete[] img_out;
+  delete[] mask;
 }
