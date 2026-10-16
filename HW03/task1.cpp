@@ -42,7 +42,7 @@ int main(int argc, char**argv) {
     mmul(A, B, C, n);
     end = high_resolution_clock::now();
     duration_ms = std::chrono::duration_cast<duration<double, std::milli>> (end - start);
-    cout << C[0] << "\n" << duration_ms.count() << "\n" << C[n * n -1] << "\n";
+    cout << C[0] << "\n" << C[n * n -1] << "\n" << duration_ms.count() << "\n";
 
     // free memory
     delete[] A;
