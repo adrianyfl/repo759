@@ -9,8 +9,8 @@
 
 g++ task3.cpp msort.cpp -Wall -O3 -std=c++17 -o task3 -fopenmp
 
-for s in {1..10}
+for t in {1..20}
 do
-	echo "ts = 2 ^ $s"
-	./task3 1000000 8 $((2 ** s))
+	echo "t = $t"
+	./task3 1000000 $t $((2 ** 10))
 done
