@@ -39,7 +39,7 @@ int main(int argc, char**argv) {
 
   // time convolution
   start = high_resolution_clock::now();
-  convolve(img, img_out, n, mask, 9);
+  convolve(img, img_out, n, mask, 3);
   end = high_resolution_clock::now();
 
   // calculate difference
