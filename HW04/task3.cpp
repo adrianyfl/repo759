@@ -20,7 +20,7 @@ const double board_size = 4.0; // Size of the board
 // Function to calculate acceleration due to gravity
 void getAcc(const double pos[][3], const double mass[], double acc[][3], int N) {
     // go through each particle
-    #pragma omp parallel for
+    #pragma omp parallel for schedule(static)
     for (int i = 0; i < N; i ++) {
         double ax = 0.0, ay = 0.0, az = 0.0;
         
@@ -155,7 +155,7 @@ int main(int argc, char *argv[]) {
     // Main simulation loop
     for (int step = 0; step < Nt; step++) {
         
-        #pragma omp parallel for
+        #pragma omp parallel for schedule(static)
         for (int i = 0; i < N; i ++){
             // (1/2) kick
             vel[i][0] += acc[i][0] * dt / 2.0;
@@ -170,7 +170,7 @@ int main(int argc, char *argv[]) {
         // Update accelerations
         getAcc(pos, mass, acc, N);
 
-        #pragma omp parallel for
+        #pragma omp parallel for schedule(static)
         for (int i = 0; i < N; i ++){
             // (1/2) kick
             vel[i][0] += acc[i][0] * dt / 2.0;
