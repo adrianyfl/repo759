@@ -35,8 +35,8 @@ int main(int argc, char** argv) {
     cudaMemcpy(dA, hA, n * sizeof(float), cudaMemcpyHostToDevice);
     cudaMemcpy(dB, hB, n * sizeof(float), cudaMemcpyHostToDevice);
 
-    // launch kernel with 512 threads per block
-    int threadsPerBlock = 512;
+    // launch kernel with 16 threads per block
+    int threadsPerBlock = 16;
     int blocksPerGrid = (n + threadsPerBlock - 1) / threadsPerBlock;
 
     // create time
